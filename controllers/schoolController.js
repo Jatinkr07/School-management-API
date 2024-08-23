@@ -1,6 +1,6 @@
 const db = require("../config/db");
 
-// Add School Controller
+// schooladd
 const addSchool = async (req, res) => {
   const { name, address, latitude, longitude } = req.body;
 
@@ -13,19 +13,17 @@ const addSchool = async (req, res) => {
       "INSERT INTO schools (name, address, latitude, longitude) VALUES (?, ?, ?, ?)",
       [name, address, latitude, longitude]
     );
-    res
-      .status(201)
-      .json({
-        message: "School added successfully",
-        schoolId: result.insertId,
-      });
+    res.status(201).json({
+      message: "School added successfully",
+      schoolId: result.insertId,
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to add school" });
   }
 };
 
-// List Schools Controller
+// schoolList
 const listSchools = async (req, res) => {
   const { latitude, longitude } = req.query;
 
@@ -56,9 +54,9 @@ const listSchools = async (req, res) => {
   }
 };
 
-// Calculate distance using Haversine formula
+//calc
 const calculateDistance = (lat1, lon1, lat2, lon2) => {
-  const R = 6371; // Earth's radius in kilometers
+  const R = 6371;
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
   const dLon = ((lon2 - lon1) * Math.PI) / 180;
   const a =
